@@ -11,7 +11,7 @@ int main(){
 
 	int couter = 0; 
 
-	for(int i = 0; i < MAX; i++)
+	for(int i = 0; stringa[i] != '\0'; i++)
 		if(stringa[i] == 'A' || stringa[i] == 'E' || stringa[i] == 'I' || stringa[i] == 'O' || stringa[i] == 'U' || stringa[i] == 'a' || stringa[i] == 'e' || stringa[i] == 'i' || stringa[i] == 'o' || stringa[i] == 'u')
 			couter++; 
 
