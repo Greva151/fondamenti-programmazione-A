@@ -15,7 +15,7 @@ int main(){
 			i--;
 		}
 
-	cout << "stringa senza spazi: " << stringa; 
+	cout << "stringa senza spazi: " << stringa << endl; 
 	
 	return 0; 	
 }
