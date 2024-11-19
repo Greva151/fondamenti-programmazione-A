@@ -30,7 +30,7 @@ int main(){
 				cin.ignore(MAX_CLEAR, '\n'); 
 				cout << "Errore: inserimento stringa errato" << endl;
 
-				cout << "Inserisci la seconda parola: ";
+				cout << "Inserisci la seconda parola: ";	
 				cin.getline(b, MAX);
 			}
 
