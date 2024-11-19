@@ -1,6 +1,5 @@
 #include <iostream>
 #define MAX 100
-#define MAX_CLEAR 5000
 using namespace std; 
 
 int main(){
@@ -9,38 +8,20 @@ int main(){
 	do{ 
 		char b[MAX] = {0}; 
 
-		cout << "Inserisci la prima parola: "; 
-		cin.getline(a, MAX);
+		cout << "Inserisci la prima parola: ";
+		cin >> a;
 
-		while(cin.fail()){
-			cin.clear(); 
-			cin.ignore(MAX_CLEAR, '\n'); 
-			cout << "Errore: inserimento stringa errato" << endl;
-
-			cout << "Inserisci la prima parola: ";	
-			cin.getline(a, MAX);
-		} 
-			
 		if(a[0] != '$'){
 			cout << "Inserisci la seconda parola: "; 
-			cin.getline(b, MAX);
-
-			while(cin.fail()){
-				cin.clear(); 
-				cin.ignore(MAX_CLEAR, '\n'); 
-				cout << "Errore: inserimento stringa errato" << endl;
-
-				cout << "Inserisci la seconda parola: ";	
-				cin.getline(b, MAX);
-			}
+			cin >> b;
 
 			int coutA = 0; 
-			int coutB = 0; 	
+			int coutB = 0; 
 
 			while(a[coutA++] != '\0');
 			coutA--; 
 
-			while(b[coutB++] != '\0');
+			while(b[coutB++] != '\0'); 
 			coutB--; 
 
 			for(int i = 0; i < coutA; i++)
