@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #define MAX 50
 #define MAX_CLEAR 5000
 using namespace std; 
@@ -13,7 +14,8 @@ struct Persona{
 	char nome[MAX];
 	char cognome[MAX]; 
 	DataNascita datanascita; 
-	char codicefiscale[16]; 
+	char codicefiscale[16];
+	bool isvalidcodefiscal;  
 };
 
 
@@ -24,6 +26,7 @@ int main(){
 	int mese; 
 	int giorno;  
 	char codicefiscale[16];
+	bool isvalidcodefiscal = false; 
 
 	cout << "Inserisci il nome della persona: ";
 	cin.getline(nome, MAX);
@@ -47,8 +50,9 @@ int main(){
 		cin.getline(cognome, MAX); 
 	} 
 
-	bool date_control = false; 
+	bool date_control; 
 	do{
+		date_control = false; 
 		cout << "Inserisci il giorno di nascita: "; 
 		cin >> giorno; 
 		cout << "Inserisci il mese di nascita: "; 
@@ -73,40 +77,65 @@ int main(){
 
 	cin.ignore(MAX_CLEAR, '\n'); 
 
-	bool code_fiscal = false; 
-	do{
+	cout << "Inserisci il codice fiscale: "; 
+	cin.getline(codicefiscale, 17); 
+
+	while(cin.fail()){
+		cin.clear(); 
+		cin.ignore(MAX_CLEAR, '\n'); 
+		cout << "Errore: inserimento stringa errata"; 
 		cout << "Inserisci il codice fiscale: "; 
-		cin.getline(codicefiscale, 17); 
+		cin.getline(codicefiscale, 17);  
+	}
 
-		while(cin.fail()){
-			cin.clear(); 
-			cin.ignore(MAX_CLEAR, '\n'); 
-			cout << "Errore: inserimento stringa errata"; 
-			cout << "Inserisci il codice fiscale: "; 
-			cin.getline(codicefiscale, 17);  
-		}
-
-		char copyCodeFiscal[16]; 
-		int q = 0; 
-		for(int i = 0; cognome[i] != '\0' && q < 3; i++)
-			if(cognome[i] != 'A' && cognome[i] != 'E' && cognome[i] != 'I' && cognome[i] != 'O' && cognome[i] != 'U' && cognome[i] != 'a' && cognome[i] != 'e' && cognome[i] != 'i' && cognome[i] != 'o' && cognome[i] != 'u')
+	char copyCodeFiscal[16]; 
+	for(int i = 0; i < 16; i++)
+		copyCodeFiscal[i] = 0; 
+	int q = 0; 
+	for(int i = 0; cognome[i] != '\0' && q < 3; i++)
+		if(cognome[i] != 'A' && cognome[i] != 'E' && cognome[i] != 'I' && cognome[i] != 'O' && cognome[i] != 'U' && cognome[i] != 'a' && cognome[i] != 'e' && cognome[i] != 'i' && cognome[i] != 'o' && cognome[i] != 'u')
+			copyCodeFiscal[q++] = cognome[i]; 
+	if(q < 3)
+		for(int i = 0; nome[i] != '\0' && q < 3; i++)
+			if(cognome[i] == 'A' || cognome[i] == 'E' || cognome[i] == 'I' || cognome[i] == 'O' || cognome[i] == 'U' || cognome[i] == 'a' || cognome[i] == 'e' || cognome[i] == 'i' || cognome[i] == 'o' || cognome[i] == 'u')
 				copyCodeFiscal[q++] = cognome[i]; 
-		if(q < 3)
-			for(int i = 0; nome[i] != '\0' && q < 3; i++)
-				if(cognome[i] == 'A' || cognome[i] == 'E' || cognome[i] == 'I' || cognome[i] == 'O' || cognome[i] == 'U' || cognome[i] == 'a' || cognome[i] == 'e' || cognome[i] == 'i' || cognome[i] == 'o' || cognome[i] == 'u')
-					copyCodeFiscal[q++] = cognome[i]; 
 
+	for(int i = 0; nome[i] != '\0' && q < 6; i++)
+		if(nome[i] != 'A' && nome[i] != 'E' && nome[i] != 'I' && nome[i] != 'O' && nome[i] != 'U' && nome[i] != 'a' && nome[i] != 'e' && nome[i] != 'i' && nome[i] != 'o' && nome[i] != 'u')
+			copyCodeFiscal[q++] = nome[i]; 
+	if(q < 6)
 		for(int i = 0; nome[i] != '\0' && q < 6; i++)
-			if(nome[i] != 'A' && nome[i] != 'E' && nome[i] != 'I' && nome[i] != 'O' && nome[i] != 'U' && nome[i] != 'a' && nome[i] != 'e' && nome[i] != 'i' && nome[i] != 'o' && nome[i] != 'u')
-				copyCodeFiscal[q++] = nome[i]; 
-		if(q < 6)
-			for(int i = 0; nome[i] != '\0' && q < 6; i++)
-				if(nome[i] == 'A' || nome[i] == 'E' || nome[i] == 'I' || nome[i] == 'O' || nome[i] == 'U' || nome[i] == 'a' || nome[i] == 'e' || nome[i] == 'i' || nome[i] == 'o' || nome[i] == 'u')
-					copyCodeFiscal[q++] = nome[i];
+			if(nome[i] == 'A' || nome[i] == 'E' || nome[i] == 'I' || nome[i] == 'O' || nome[i] == 'U' || nome[i] == 'a' || nome[i] == 'e' || nome[i] == 'i' || nome[i] == 'o' || nome[i] == 'u')
+				copyCodeFiscal[q++] = nome[i];
 
-		cout << copyCodeFiscal << endl; 
+	copyCodeFiscal[q++] = (anno / 10) % 10 + 0x30; 
+	copyCodeFiscal[q++] = anno % 10 + 0x30; 
+	copyCodeFiscal[q++] = 'A' + mese - 1; 
+	copyCodeFiscal[q++] = (giorno / 10) % 10 + 0x30; 
+	copyCodeFiscal[q++] = giorno % 10 + 0x30; 
 
-	}while(code_fiscal); 
+	for(int i = 0; i < q; i++)
+		if(copyCodeFiscal[i] >= 'a')
+			copyCodeFiscal[i] -= 0x20; 
+
+	if(strncmp(copyCodeFiscal, codicefiscale, 11) == 0)
+		isvalidcodefiscal = true; 
+ 
+	Persona person; 
+	strncpy(person.nome, nome, MAX); 
+	strncpy(person.cognome, cognome, MAX); 
+	person.datanascita.giorno = giorno; 
+	person.datanascita.mese = mese; 
+	person.datanascita.anno = anno; 
+	strncpy(person.codicefiscale, codicefiscale, 16); 
+	person.isvalidcodefiscal = isvalidcodefiscal;
+	 
+	cout << endl; 
+	cout << "=== Abstract della persona ===" << endl;  
+	cout << "Nome: " << person.nome << " Cognome: " << person.cognome << endl; 
+	cout << "Data di nascita: " << person.datanascita.giorno << "/" << person.datanascita.mese << "/" << person.datanascita.anno << endl; 
+	cout << "Codice fiscale: " << person.codicefiscale << endl; 
+	cout << "Stato del codcie: " << (person.isvalidcodefiscal ? "Valido" : "Non valido") << endl; 
 
 	return 0; 
 }
