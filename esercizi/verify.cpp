@@ -24,7 +24,6 @@ int main(){
 	do{
 		cout << "Inserisci il numero di elementi dell'array: "; 
 		cin >> n;
-
 		if(n < 1)
 			cout << "Errore: valore non accettato" << endl; 
 	}while(n < 1); 
