@@ -4,6 +4,7 @@
 #define MAX_PRODOTTI 100
 using namespace std; 
 
+
 struct Prodotto{
   int id; 
   char nome_prodotto[MAX];
@@ -34,7 +35,7 @@ void inserisciProdotto(Prodotto prodotti[], int &indice){
 
     cout << "Inserisci la quantita': "; 
     cin >> prodotti[indice].quantita;
-    cin.ignore(); 
+    cin.ignore();
     indice++;
     cout << "Nuovo prodotto aggiunto!" << endl;
   }
@@ -51,6 +52,7 @@ void stampaInventario(Prodotto singolo_prodotto){
   cout << endl; 
 }
 
+
 float calcolaValoreTotale(Prodotto prodotti[], int indice){
   float somma = 0; 
 
@@ -66,6 +68,7 @@ Prodotto* cercaProdotto(Prodotto prodotti[], int max, int indice){
     return &prodotti[indice]; 
   return nullptr;  
 }
+
 
 void modificaProdotto(Prodotto* prodotto_modifica){
   cout << "Inserisci il nuovo nome:"; 
@@ -87,6 +90,7 @@ void modificaProdotto(Prodotto* prodotto_modifica){
   cin >> (*prodotto_modifica).quantita;
   cin.ignore();  
 }
+
 
 int main(){
   Prodotto prodotti[MAX_PRODOTTI];   
