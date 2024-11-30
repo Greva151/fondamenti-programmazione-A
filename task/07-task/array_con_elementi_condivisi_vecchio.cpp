@@ -1,5 +1,4 @@
 #include <iostream>
-#include <ostream>
 #define MAX 1000
 using namespace std; 
 
@@ -24,17 +23,9 @@ int main(){
   
   do{
     cout << "Inserire un numero: "; 
-    cin >> n;  
-  
-    while(cin.fail()){
-      cin.clear(); 
-      cin.ignore(5000, '\n'); 
-      cout << "Errore: inserimento numero" << endl;
-      cout << "Inserire un numero: "; 
-      cin >> n; 
-    }
-    
-    if(n > -1){
+    cin >> n; 
+
+    if(n != -1){
       bool is_found = true; 
     
       for(int i = 0; i < counter_elementi; i++)
@@ -46,7 +37,7 @@ int main(){
       if(is_found)
         A[counter_a++] = addElement(elementi, counter_elementi, n);    
     }   
-  }while(n > -1 && counter_a < MAX && counter_elementi < MAX);
+  }while(n != -1 && counter_a < MAX && counter_elementi < MAX);
 
   cout << "Allocate " << counter_elementi << " variabili" << endl;
 
