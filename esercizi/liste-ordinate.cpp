@@ -5,7 +5,14 @@ using namespace std;
 struct Node{
   int value; 
   Node* next; 
-}; 
+};
+
+Node* ordinaLista(Node* list){
+  Node* copy = list; 
+  Node* pre; 
+
+  return list; 
+} 
 
 Node* newList(int array[], int n){
   Node* list = new Node;
