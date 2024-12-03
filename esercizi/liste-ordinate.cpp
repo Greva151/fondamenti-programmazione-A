@@ -8,9 +8,16 @@ struct Node{
 };
 
 Node* ordinaLista(Node* list){
-  Node* copy = list; 
-  Node* pre; 
-
+  if(list == nullptr)
+    return nullptr;
+  else if(list->next == nullptr)
+    return list; 
+  else if(list->next->next == nullptr)
+    if(list->value < list->next->value){
+      Node* copy = list->next; 
+      list->next = nullptr; 
+      copy->next = copy; 
+    }
   return list; 
 } 
 
