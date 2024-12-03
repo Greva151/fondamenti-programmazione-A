@@ -7,17 +7,29 @@ struct Node{
   Node* next; 
 };
 
-Node* ordinaLista(Node* list){
+Node* ordinaLista(Node* &list){
   if(list == nullptr)
     return nullptr;
   else if(list->next == nullptr)
     return list; 
-  else if(list->next->next == nullptr)
-    if(list->value < list->next->value){
-      Node* copy = list->next; 
-      list->next = nullptr; 
-      copy->next = copy; 
+  else{
+    Node* pre = nullptr;  
+    Node* cursor = list;  
+    Node* next = list->next; 
+     
+    while(cursor->next != nullptr){
+      if(cursor->value < next->value){
+        pre->next = next; 
+        cursor->next = next->next;
+        next->next = cursor; 
+      }
+
+      pre = cursor;
+      cursor = next; 
+      next = next->next; 
     }
+  }
+    
   return list; 
 } 
 
@@ -26,7 +38,7 @@ Node* newList(int array[], int n){
   Node* copy = list;    
   
   for(int i = 0; i < n; i++){
-    copy->value = array[i]; 
+    copy->value = array[n - i]; 
     copy->next = new Node;
     copy = copy->next;    
   }
