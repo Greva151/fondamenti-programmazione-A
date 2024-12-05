@@ -23,8 +23,7 @@ Node* ordinaLista(Node* list){
   else if(list->next == nullptr)
     return list;
   else{
-    int n = lenOfList(list);
-    cout << "dimensione lista: " << n << endl;  
+    int n = lenOfList(list);  
     for(int i = 0; i < n; i++){ 
       Node* precedente = nullptr;   
       Node* cursor = list;  
@@ -36,7 +35,8 @@ Node* ordinaLista(Node* list){
               list = next;  
             cursor->next = next->next; 
             next->next = cursor;
-            precedente->next = next; 
+            if(precedente != nullptr)
+              precedente->next = next; 
             cursor = next; 
             next = cursor->next;  
         }  
@@ -87,8 +87,6 @@ int main(){
     copy = copy->next; 
   }
 
-
   deleteList(list); 
-
   return 0; 
 }
