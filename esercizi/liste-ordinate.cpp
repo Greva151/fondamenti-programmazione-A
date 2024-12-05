@@ -7,24 +7,43 @@ struct Node{
   Node* next; 
 };
 
+int lenOfList(Node* list){
+  int counter = 0; 
+  while(list->next != nullptr){
+    list = list->next;
+    counter++;  
+  }
+  return counter; 
+}
+
+
 Node* ordinaLista(Node* list){
   if(list == nullptr)
     return nullptr;
   else if(list->next == nullptr)
     return list;
-  else{  
-    Node* cursor = list;  
-    Node* next = list->next; 
-     
-    while(next->next != nullptr){
-      if(cursor->value > next->value){ 
-          cursor->next = next->next; 
-          next->next = cursor;
-          cursor = next; 
-          next = cursor->next;  
-      }  
-      cursor = next; 
-      next = next->next; 
+  else{
+    int n = lenOfList(list);
+    cout << "dimensione lista: " << n << endl;  
+    for(int i = 0; i < n; i++){ 
+      Node* precedente = nullptr;   
+      Node* cursor = list;  
+      Node* next = list->next; 
+ 
+      while(next->next != nullptr){
+        if(cursor->value > next->value){
+            if(precedente == nullptr)
+              list = next;  
+            cursor->next = next->next; 
+            next->next = cursor;
+            precedente->next = next; 
+            cursor = next; 
+            next = cursor->next;  
+        }  
+        precedente = cursor; 
+        cursor = cursor->next; 
+        next = next->next; 
+      }
     }
   }
     
