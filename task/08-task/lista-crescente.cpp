@@ -31,15 +31,50 @@ void deleteList(Node* list){
   return; 
 }
 
-void crescente(Node* list){
-  while(list != nullptr){
-    
-  }
+Node* crescente(Node* list){
+  Node* copy = list; 
+  Node* minore = list; 
 
+  if(list == nullptr)
+    return nullptr; 
+  
+  while(copy->next != nullptr){
+    if(copy->value > copy->next->value)
+       minore = copy->next; 
+     copy = copy->next; 
+  }
+  
+  return minore; 
+}
+
+void print(Node* list){
+  while(list != nullptr){
+    cout << list->value << " "; 
+    list = list->next;  
+  }
 }
 
 int main(){
+  Node* list = nullptr; 
+  int n; 
   
+  do{
+    cout << "inserisci un numero: "; 
+    cin >> n; 
+    
+    if(n == -1){
+      cout << "Arrivederci!!" << endl;
+      break; 
+    }
+
+    addNode(list, n); 
+  }while(true); 
+
+  Node* minore = crescente(list); 
+
+  print(minore); 
+
+  deleteList(list); 
 
   return 0; 
 }
