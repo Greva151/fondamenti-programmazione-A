@@ -8,7 +8,7 @@ char* longestWord(char str[]){
   char* newstring = new char[dim];
   int max = 0; 
   int counter = 0;
-  int q = -1;  
+  int q = 0;  
 
   for(int i = 0; i < dim + 1; i++){
     if(str[i] != ' ' && str[i] != '\0')
@@ -21,16 +21,12 @@ char* longestWord(char str[]){
       counter = 0; 
     }
   }
-
-  if(q != -1){
-    int k = 0; 
-    for(int i = q - max; i < q; i++)
-      newstring[k++] = str[i];
-    newstring[k] = '\0';
-  }
-  else
-    return nullptr; 
   
+  int k = 0; 
+  for(int i = q - max; i < q; i++)
+    newstring[k++] = str[i];
+  newstring[k] = '\0';  
+ 
   return newstring; 
 }
 
@@ -48,8 +44,9 @@ int main(){
       cout << "Inserisci la stringa: ";
       cin.getline(str, MAX);  
   }
- 
-  cout << "La parola piu' lunga e': " << longestWord(str) << endl;
-  
+
+  char* parola = longestWord(str);
+  cout << "La parola piu' lunga e': " << parola << endl;
+  delete [] parola;     
   return 0; 
 }
