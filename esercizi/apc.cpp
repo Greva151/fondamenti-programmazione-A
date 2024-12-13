@@ -17,6 +17,6 @@ int main(){
  
 	float areacerchio = 3.14 * x * x; 
 	cout << "area del cerchio " << areacerchio << endl;
-
+	
 	return 0;
 }
