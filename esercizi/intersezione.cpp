@@ -63,6 +63,7 @@ void printList(Node* list){
         cout << list->value << " "; 
         list = list->next; 
     }
+    cout << endl; 
 }
 
 void deleteList(Node* list){
@@ -73,12 +74,28 @@ void deleteList(Node* list){
     }
 }
 
+Node* intersezione(Node* firstlist){
+    Node* endlist = nullptr; 
+    if(firstlist != nullptr){
+        addNode(endlist, firstlist->value); 
+        while(firstlist->next->next != nullptr){
+            addNode(endlist, firstlist->value + firstlist->next->next->value);
+            firstlist = firstlist->next;  
+        }
+        addNode(endlist, firstlist->next->value); 
+    }
+    
+    return endlist; 
+}
+
 int main(){
     Node* firstList = nullptr;
     int dimensione = getLenOfList(); 
     getList(firstList, dimensione); 
-    printList(firstList); 
+    printList(firstList);
+    Node* inter =  intersezione(firstList); 
+    printList(inter);  
     deleteList(firstList); 
-
+    deleteList(inter); 
     return 0; 
 }
