@@ -14,7 +14,14 @@ char* revert(char str[]){
 
 
 int main(){
-    char str[] = "Hello"; 
-    cout << revert(str) << endl; 
+    char str[50]; 
+
+    cout << "Inserisci una stringa: "; 
+    cin.getline(str, 50);
+
+    if(cin.fail())
+        return -1; 
+    else
+        cout << revert(str) << endl; 
     return 0; 
 }
